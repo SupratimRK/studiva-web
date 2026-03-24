@@ -16,13 +16,13 @@ const Comparison = () => {
             <div className="container">
                 <div className="compare__head">
                     <span className="label">Comparison</span>
-                    <h2 className="section-title">Why creators choose Studyvia.</h2>
+                    <h2 className="section-title">Why creators choose Studiva.</h2>
                 </div>
 
                 <div className="compare__table card">
                     <div className="compare__row compare__header">
                         <div className="compare__cell compare__cell--item">Feature</div>
-                        <div className="compare__cell compare__cell--via">Studyvia</div>
+                        <div className="compare__cell compare__cell--via">Studiva</div>
                         <div className="compare__cell compare__cell--others">Other Platforms</div>
                     </div>
 

@@ -109,7 +109,7 @@ const Hero = () => {
                 <div className="hero__visual">
                     <div className="hero__visual-container" ref={phoneRef}>
                         <div className="hero__phone-wrapper card">
-                            <img src="/images/hero-phone.png" alt="StudyviaApp" className="hero__phone-img" />
+                            <img src="/images/hero-phone.png" alt="StudivaApp" className="hero__phone-img" />
                             <div className="hero__phone-overlay" />
                         </div>
 

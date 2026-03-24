@@ -34,7 +34,7 @@ const testimonials = [
     },
     {
         id: 't5', name: 'Arjun Reddy', role: 'UPSC Aspirant, CSE 2024',
-        badge: 'Learner', text: 'Civil services prep is expensive. Studyvia changed that. IAS toppers\' notes at a fraction of coaching cost. Ad-unlock option is a lifesaver.',
+        badge: 'Learner', text: 'Civil services prep is expensive. Studiva changed that. IAS toppers\' notes at a fraction of coaching cost. Ad-unlock option is a lifesaver.',
         earn: 'Saved ₹5K/mo', initials: 'AR',
     },
     {
@@ -66,7 +66,7 @@ const Testimonials = () => {
                 <div className="testimonials__head">
                     <span className="label">Reviews</span>
                     <h2 className="section-title">Real students.<br />Real results.</h2>
-                    <p className="section-sub">Over 200,000 students and creators trust Studyvia.</p>
+                    <p className="section-sub">Over 200,000 students and creators trust Studiva.</p>
                 </div>
 
                 {/* Trust row */}

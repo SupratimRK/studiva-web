@@ -13,7 +13,7 @@ const faqs = [
         a: "Not at all. You can upload an unlimited number of notes. In fact, creators with 50+ notes tend to earn 3x more due to higher visibility in search results."
     },
     {
-        q: "What is the revenue share on Studyvia?",
+        q: "What is the revenue share on Studiva?",
         a: "We offer the most creator-friendly model in the market. You keep 70% of all sales. For rewarded ads, we split the ad revenue 50/50, ensuring students can access content for free while you still get paid."
     },
     {
@@ -26,7 +26,7 @@ const faqs = [
     },
     {
         q: "Is it safe to share my notes? What about piracy?",
-        a: "We take piracy seriously. Notes on Studyvia are served in a secure viewer that prevents direct downloading (unless you enable it). Each page is watermarked with the creator's username for added security."
+        a: "We take piracy seriously. Notes on Studiva are served in a secure viewer that prevents direct downloading (unless you enable it). Each page is watermarked with the creator's username for added security."
     }
 ];
 
@@ -72,7 +72,7 @@ const FAQ = () => {
                     </div>
                     <span className="label">Questions</span>
                     <h2 className="section-title">Got Questions? We've Got Answers.</h2>
-                    <p className="section-sub">Everything you need to know about the Studyvia platform, monetisation, and security.</p>
+                    <p className="section-sub">Everything you need to know about the Studiva platform, monetisation, and security.</p>
                 </div>
 
                 <div className="faq__grid">
@@ -84,7 +84,7 @@ const FAQ = () => {
                 <div className="faq__footer">
                     <div className="faq__support card">
                         <MessageCircle size={20} className="faq__support-icon" />
-                        <span>Still have questions? <a href="mailto:support@studyvia.com">Chat with our support team</a>. We're here to help.</span>
+                        <span>Still have questions? <a href="mailto:support@studiva.com">Chat with our support team</a>. We're here to help.</span>
                     </div>
                 </div>
             </div>

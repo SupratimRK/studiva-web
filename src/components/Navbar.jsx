@@ -25,14 +25,23 @@ const Navbar = () => {
         <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
             <div className="container nav__inner">
                 {/* Logo */}
-                <a href="#" className="nav__logo" id="nav-logo">
+                <a 
+                    href="/" 
+                    className="nav__logo" 
+                    id="nav-logo"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.history.pushState({}, '', '/');
+                        window.dispatchEvent(new Event('navigate'));
+                    }}
+                >
                     <div className="nav__logo-icon">
                         <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
                             <rect width="28" height="28" rx="7" fill="var(--accent)" />
                             <path d="M7 9h14M7 14h9M7 19h12" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
                         </svg>
                     </div>
-                    <span>Studyvia</span>
+                    <span>Studiva</span>
                 </a>
 
                 {/* Desktop Links */}
@@ -80,7 +89,7 @@ const Navbar = () => {
                         </a>
                     ))}
                     <a href="#download" className="btn-primary" style={{ width: '100%', marginTop: '20px' }}>
-                        Download Studyvia
+                        Download Studiva
                     </a>
                 </div>
             </div>

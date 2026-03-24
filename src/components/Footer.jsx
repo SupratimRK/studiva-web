@@ -2,11 +2,19 @@ import { Twitter, Instagram, Linkedin, Youtube, Zap } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
+    const handleNavigate = (e, href) => {
+        if (href.startsWith('/')) {
+            e.preventDefault();
+            window.history.pushState({}, '', href);
+            window.dispatchEvent(new Event('navigate'));
+        }
+    };
+
     const cols = [
-        { title: 'Product', links: ['Features', 'How it works', 'Creator Tools', 'Pricing', 'Release Notes'] },
-        { title: 'Subjects', links: ['JEE Mains', 'NEET UG', 'CBSE Class 12', 'UPSC Prelims', 'Engineering'] },
-        { title: 'Company', links: ['About Studyvia', 'Career', 'Newsroom', 'Contact Us'] },
-        { title: 'Legal', links: ['Privacy Policy', 'Terms of Service', 'Cookie Settings'] },
+        { title: 'Product', links: [{ label: 'Features', href: '#' }, { label: 'How it works', href: '#' }, { label: 'Creator Tools', href: '#' }, { label: 'Pricing', href: '#' }, { label: 'Release Notes', href: '#' }] },
+        { title: 'Subjects', links: [{ label: 'JEE Mains', href: '#' }, { label: 'NEET UG', href: '#' }, { label: 'CBSE Class 12', href: '#' }, { label: 'UPSC Prelims', href: '#' }, { label: 'Engineering', href: '#' }] },
+        { title: 'Company', links: [{ label: 'About Studyvia', href: '#' }, { label: 'Career', href: '#' }, { label: 'Newsroom', href: '#' }, { label: 'Contact Us', href: '#' }] },
+        { title: 'Legal', links: [{ label: 'Privacy Policy', href: '/privacy' }, { label: 'Terms of Service', href: '/tos' }, { label: 'Account Deletion', href: '/delete-account' }] },
     ];
 
     return (
@@ -36,7 +44,15 @@ const Footer = () => {
                             <span className="footer__col-title">{col.title}</span>
                             <ul>
                                 {col.links.map(l => (
-                                    <li key={l}><a href="#" id={`footer-link-${l.toLowerCase().replace(/\s+/g, '-')}`}>{l}</a></li>
+                                    <li key={l.label}>
+                                        <a 
+                                            href={l.href} 
+                                            id={`footer-link-${l.label.toLowerCase().replace(/\s+/g, '-')}`}
+                                            onClick={(e) => handleNavigate(e, l.href)}
+                                        >
+                                            {l.label}
+                                        </a>
+                                    </li>
                                 ))}
                             </ul>
                         </div>

@@ -37,7 +37,7 @@ const FinalCTA = () => {
                 <span className="label cta-animate">Ready to Begin?</span>
                 <h2 className="final-cta__title cta-animate">
                     Join 200,000 students <br />
-                    growing on <span className="accent-text">Studyvia.</span>
+                    growing on <span className="accent-text">Studiva.</span>
                 </h2>
                 <p className="section-sub final-cta__sub cta-animate">
                     Start monetising your notes today. Instant setup,
