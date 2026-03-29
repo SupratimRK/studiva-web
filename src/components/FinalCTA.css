@@ -43,32 +43,72 @@
     max-width: 400px;
 }
 
-/* Black Download Button with 3D shadow for Light BG */
-.btn-primary-white {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12px;
-    padding: 14px 32px;
-    background: #171717;
-    color: #ffffff;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 16px;
-    text-decoration: none;
-    transition: transform 0.1s, box-shadow 0.1s;
-    /* Solid grey shadow offset */
-    box-shadow: 0px 6px 0px rgba(0, 0, 0, 0.3);
+/* Uiverse Download Button Styles */
+.uiverse-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 15px;
+  color: white;
+  text-shadow: 1px 1px rgb(191, 191, 191);
+  text-transform: uppercase;
+  cursor: pointer;
+  border: solid 3px #171717;
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: hsl(0, 0%, 0%);
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  text-decoration: none;
+  height: 56px;
+  min-width: 220px;
+  margin-top: 12px;
+  box-shadow: 0px 6px 0px #787777;
 }
 
-.btn-primary-white:hover {
-    transform: translateY(2px);
-    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.3);
+.uiverse-download-btn:active {
+  transform: scale(0.95) translateY(4px);
+  box-shadow: 0px 2px 0px #171717;
+  transition: all 100ms ease;
 }
 
-.btn-primary-white:active {
-    transform: translateY(6px);
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
+.uiverse-download-btn svg {
+  transition: all 0.5s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.uiverse-download-btn .download {
+  transition: all 0.5s ease;
+  transition-delay: 300ms;
+}
+
+.uiverse-download-btn:hover svg {
+  transform: scale(3) translate(50%);
+}
+
+.uiverse-download-btn .now {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  z-index: 2;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.uiverse-download-btn:hover .now {
+  transform: translateX(25px);
+  transition-delay: 300ms;
+}
+
+.uiverse-download-btn:hover .download {
+  transform: translateX(200%);
+  transition-delay: 300ms;
 }
 
 /* Graphic Side */
