@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, MessageCircle, HelpCircle, Sparkles } from 'lucide-react';
 import gsap from 'gsap';

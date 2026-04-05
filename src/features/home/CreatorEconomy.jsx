@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { CreditCard, PlayCircle, Rocket, Sparkles, TrendingUp, Users, FileText, Wallet } from 'lucide-react';
 import './CreatorEconomy.css';
@@ -142,7 +143,7 @@ const CreatorEconomy = () => {
 
                 {/* 💠 Modes: Horizontal Stack Plates (NON-GRID) */}
                 <div className="creator__modes">
-                    {modes.map((m, i) => (
+                    {modes.map((m) => (
                         <div key={m.id} className="mode-plate">
                             <div className="mode-plate__icon-box">
                                 {m.icon}

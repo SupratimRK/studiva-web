@@ -1,8 +1,9 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, Users } from 'lucide-react';
-const SplineScene = lazy(() => import('./SplineScene'));
-import SplinePlaceholder from './SplinePlaceholder';
+const SplineScene = lazy(() => import('../../components/ui/SplineScene'));
+import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
 import './Hero.css';
 
 const Hero = () => {
@@ -51,13 +52,7 @@ const Hero = () => {
             <div className="container hero__inner">
                 {/* Text Content */}
                 <div className="hero__content">
-                    {/* <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                    >
-                        <span className="label">COMMUNITY-POWERED KNOWLEDGE</span>
-                    </motion.div> */}
+
 
                     <h1 className="hero__title">
                         <motion.span

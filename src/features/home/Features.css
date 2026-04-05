@@ -5,7 +5,7 @@
   contain: paint;
 }
 
-.feat-block + .feat-block {
+.feat-block+.feat-block {
   margin-top: 24px;
 }
 
@@ -26,7 +26,8 @@
 .feat-block--flip .feat-block__inner {
   direction: rtl;
 }
-.feat-block--flip .feat-block__inner > * {
+
+.feat-block--flip .feat-block__inner>* {
   direction: ltr;
 }
 
@@ -82,6 +83,7 @@
   top: 12px;
   left: 12px;
 }
+
 .feat-pill--br {
   bottom: 12px;
   right: 12px;
@@ -237,10 +239,12 @@
   z-index: 2;
   pointer-events: none;
 }
+
 .feat-belt::before {
   left: 0;
   background: linear-gradient(to right, var(--bg), transparent);
 }
+
 .feat-belt::after {
   right: 0;
   background: linear-gradient(to left, var(--bg), transparent);
@@ -256,6 +260,7 @@
 .feat-belt__track--left {
   animation: scrollLeft 55s linear infinite;
 }
+
 .feat-belt__track--right {
   animation: scrollRight 70s linear infinite;
 }
@@ -264,14 +269,17 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-33.33%);
   }
 }
+
 @keyframes scrollRight {
   from {
     transform: translateX(-33.33%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -346,7 +354,7 @@
     padding: 40px 0;
   }
 
-  .feat-block + .feat-block {
+  .feat-block+.feat-block {
     margin-top: 10px;
   }
 
@@ -377,6 +385,7 @@
     top: 8px;
     left: 8px;
   }
+
   .feat-pill--br {
     bottom: 8px;
     right: 8px;
@@ -386,6 +395,7 @@
     margin-top: 40px;
     padding: 48px 0 56px;
   }
+
   .feat-cats__head {
     margin-bottom: 28px;
   }

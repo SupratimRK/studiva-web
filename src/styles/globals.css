@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Getaway';
-  src: url('/fonts/getaway.otf') format('opentype');
+  src: url('/src/assets/fonts/getaway.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -8,49 +8,49 @@
 
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Thin-BF652cb1b461e9c.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Thin-BF652cb1b461e9c.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Light-BF652cb1b459bdf.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Light-BF652cb1b459bdf.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Book-BF652cb1b45dae8.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Book-BF652cb1b45dae8.ttf') format('truetype');
   font-weight: 350;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Regular-BF652cb1b4787d7.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Regular-BF652cb1b4787d7.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Medium-BF652cb1b4765e1.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Medium-BF652cb1b4765e1.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Semibold-BF652cb1b467d9d.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Semibold-BF652cb1b467d9d.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'ID Grotesk';
-  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Bold-BF652cb1b4740d2.ttf') format('truetype');
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Bold-BF652cb1b4740d2.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -58,7 +58,7 @@
 
 @font-face {
   font-family: 'Super Kindly';
-  src: url('/fonts/super-kindly-font/SuperKindly-drE8E.ttf') format('truetype');
+  src: url('/src/assets/fonts/super-kindly-font/SuperKindly-drE8E.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -66,8 +66,8 @@
 
 @font-face {
   font-family: 'Thesead';
-  src: url('/fonts/thesead/Thesead.otf') format('opentype'),
-       url('/fonts/thesead/Thesead.ttf') format('truetype');
+  src: url('/src/assets/fonts/thesead/Thesead.otf') format('opentype'),
+       url('/src/assets/fonts/thesead/Thesead.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

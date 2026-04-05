@@ -48,7 +48,7 @@ const rows = [
   },
 ];
 
-const Cell = ({ val, isStudiva }) => {
+const Cell = ({ val }) => {
   if (val === true)
     return (
       <span className="cmp-bool cmp-bool--yes">
@@ -173,7 +173,7 @@ const Comparison = () => {
                   {row.feature}
                 </div>
                 <div className="compare__td compare__td--studiva">
-                  <Cell val={row.studiva} isStudiva />
+                  <Cell val={row.studiva} />
                 </div>
                 <div className="compare__td compare__td--others">
                   <Cell val={row.others} />

@@ -37,6 +37,7 @@ export const useScrollAnimation = (options = {}) => {
         if (st.trigger === el) st.kill();
       });
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return ref;
@@ -75,6 +76,7 @@ export const useStaggerAnimation = (options = {}) => {
     return () => {
       tl.kill();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return ref;

@@ -94,7 +94,7 @@ const FinalCTA = () => {
 
                 <div className="final-cta__graphic cta-animate">
                     <img
-                        src="/images/funny_guy.png"
+                        src="/src/assets/icons/funny_guy.png"
                         alt="Funny guy sipping from cup illustration"
                         className="dino-image"
                         draggable="false"

@@ -1,27 +1,16 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import Lenis from '@studio-freight/lenis';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-
-const Features = lazy(() => import('./components/Features'));
-const HowItWorks = lazy(() => import('./components/HowItWorks'));
-const CreatorEconomy = lazy(() => import('./components/CreatorEconomy'));
-const Testimonials = lazy(() => import('./components/Testimonials'));
-const Comparison = lazy(() => import('./components/Comparison'));
-const FAQ = lazy(() => import('./components/FAQ'));
-const FinalCTA = lazy(() => import('./components/FinalCTA'));
-const Footer = lazy(() => import('./components/Footer'));
 
 // Legal Pages
 import Privacy from './pages/legal/Privacy';
 import TOS from './pages/legal/TOS';
 import DeleteAccount from './pages/legal/DeleteAccount';
 
-import './App.css';
+import './styles/variables.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,27 +80,7 @@ function App() {
       case '/delete-account':
         return <DeleteAccount />;
       default:
-        return (
-          <>
-            <Navbar />
-            <main>
-              <Hero />
-              <Marquee />
-              <Suspense fallback={<div style={{ height: '400px' }} />}>
-                <Features />
-                <HowItWorks />
-                <CreatorEconomy />
-                <Testimonials />
-                <Comparison />
-                <FAQ />
-                <FinalCTA />
-              </Suspense>
-            </main>
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
-          </>
-        );
+        return <Home />;
     }
   };
 
