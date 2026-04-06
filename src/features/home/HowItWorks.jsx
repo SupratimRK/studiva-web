@@ -10,25 +10,25 @@ const steps = [
         pos: 'top-left',
         title: 'Upload your notes',
         desc: 'Quickly upload your PDFs in high resolution. Our <span class="text-gradient">advanced AI</span> instantly tags and categorizes your content for <span class="text-highlight">global reach</span> across the marketplace.',
-        image: '/src/assets/icons/upload.svg',
+        image: 'src/assets/icons/upload.svg',
     },
     {
         pos: 'top-right',
         title: 'Set your price',
         desc: 'Choose free, paid, or ad-supported access with <span class="text-gradient">total pricing control</span>. Monetize your expertise and set <span class="text-highlight">competitive rates</span> that reward your hard work.',
-        image: '/src/assets/icons/price.svg',
+        image: 'src/assets/icons/price.svg',
     },
     {
         pos: 'bottom-left',
         title: 'Students unlock it',
         desc: 'Learners pay or watch ads to access your <span class="text-gradient">exclusive notes</span>. Instantly reach a massive audience seeking <span class="text-highlight">unique insights</span> only you can provide.',
-        image: '/src/assets/icons/unlock.svg',
+        image: 'src/assets/icons/unlock.svg',
     },
     {
         pos: 'bottom-right',
         title: 'Instant Withdrawals',
         desc: 'Revenue appears instantly in your <span class="text-gradient">dedicated dashboard</span>. Withdraw total earnings same-day directly to UPI or any bank account with <span class="text-highlight">zero hidden fees</span>.',
-        image: '/src/assets/icons/withdraw.svg',
+        image: 'src/assets/icons/withdraw.svg',
     },
 ];
 
@@ -95,9 +95,9 @@ const HowItWorks = () => {
                     </div>
 
                     <div className="how-it-works__core">
-                        <img 
-                            src="/src/assets/icons/studying.svg" 
-                            alt="Marketplace Core" 
+                        <img
+                            src="/src/assets/icons/studying.svg"
+                            alt="Marketplace Core"
                             className="how-it-works__core-img"
                             loading="lazy"
                         />
