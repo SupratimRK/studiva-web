@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './FinalCTA.css';
+import funnyGuyImg from '../../assets/icons/funny_guy.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,7 +95,7 @@ const FinalCTA = () => {
 
                 <div className="final-cta__graphic cta-animate">
                     <img
-                        src="/src/assets/icons/funny_guy.png"
+                        src={funnyGuyImg}
                         alt="Funny guy sipping from cup illustration"
                         className="dino-image"
                         draggable="false"
