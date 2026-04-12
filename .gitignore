@@ -58,3 +58,4 @@ desktop.ini
 *.temp
 agents
 .agents
+.planning

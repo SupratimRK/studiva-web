@@ -165,21 +165,30 @@
     font-family: 'Thesead', system-ui, -apple-system, sans-serif;
     font-size: clamp(100px, 25vw, 420px);
     font-weight: 950;
-    letter-spacing: 2px;
-    line-height: 0.8; /* Tighter line height to minimize internal font padding */
+    letter-spacing: -0.05em;
+    line-height: 0.8;
     margin: 0;
     text-align: center;
     white-space: nowrap;
+    
+    /* Center letters */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 
-    /* Fade Down Effect (Solid Black Top -> Transparent Bottom) */
+    /* Fade Down Effect */
     background: linear-gradient(to bottom, var(--footer-text-fade-start) 15%, var(--footer-text-fade-end) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
 
-    transform: translateY(15%); /* Slight push down into the bottom clip */
-    will-change: transform;
+    transform: translateY(15%);
+}
+
+.footer-letter {
+    display: inline-block;
+    will-change: transform, opacity;
 }
 
 /* Responsive Overrides */

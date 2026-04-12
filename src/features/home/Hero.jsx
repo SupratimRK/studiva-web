@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, useRef } from 'react';
+import { useEffect, lazy, Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TrendingUp, Users } from 'lucide-react';
@@ -7,17 +7,14 @@ import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
 import './Hero.css';
 
 const Hero = () => {
-    const [isSplineLoaded, setIsSplineLoaded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
     const containerRef = useRef(null);
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 1024);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        // Alignment and initial setup
+        const timer = setTimeout(() => {
+            gsap.ticker.lagSmoothing(0);
+        }, 100);
+        return () => clearTimeout(timer);
     }, []);
 
     useGSAP(() => {
@@ -61,23 +58,6 @@ const Hero = () => {
 
     return (
         <section className="hero" ref={containerRef}>
-
-            {/* Background Spline Animation - Temporarily hidden per user request */}
-            {/* !isMobile && (
-                <div className="hero__spline-wrapper">
-                    <div className="hero__spline-container">
-                        {!isSplineLoaded && (
-                            <div className="spline-placeholder-wrapper" style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-                                <SplinePlaceholder />
-                            </div>
-                        )}
-                        <Suspense fallback={null}>
-                            <SplineScene onLoad={() => setIsSplineLoaded(true)} />
-                        </Suspense>
-                    </div>
-                </div>
-            ) */}
-
             <div className="grid-bg" />
 
             {/* Main Content Container */}

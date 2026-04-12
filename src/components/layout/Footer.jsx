@@ -22,24 +22,26 @@ const Footer = () => {
     ];
 
     const socials = ['INSTAGRAM', 'FACEBOOK', 'TWITTER', 'LINKEDIN'];
+    const massiveTextRef = useRef(null);
     const footerRef = useRef(null);
 
     useGSAP(() => {
-        // Massive text scrubbing effect
-        gsap.fromTo('.footer-b__massive-text', 
-            { scale: 0.7, opacity: 0.5, y: 50 },
-            { 
-               scale: 1,
-               opacity: 1,
-               y: 0,
-               scrollTrigger: {
-                   trigger: footerRef.current,
-                   start: 'top bottom',
-                   end: 'bottom bottom',
-                   scrub: true
-               }
+        // Individual letter bounce
+        const letters = massiveTextRef.current.querySelectorAll('.footer-letter');
+        gsap.from(letters, {
+            y: 100,
+            opacity: 0,
+            rotate: 20,
+            scale: 0.5,
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: footerRef.current,
+                start: "top 90%",
+                once: true // Only once
             }
-        );
+        });
 
         // Magnetic links for social buttons
         const socialBtns = document.querySelectorAll('.footer-b__social-btn');
@@ -56,6 +58,8 @@ const Footer = () => {
         });
 
     }, { scope: footerRef });
+
+    const FooterText = "STUDIVA";
 
     return (
         <footer className="footer-brutalist" id="footer" ref={footerRef}>
@@ -109,7 +113,11 @@ const Footer = () => {
             </div>
 
             <div className="footer-b__bottom-area">
-                <h1 className="footer-b__massive-text">STUDIVA</h1>
+                <h1 className="footer-b__massive-text" ref={massiveTextRef}>
+                    {FooterText.split('').map((char, index) => (
+                        <span key={index} className="footer-letter">{char}</span>
+                    ))}
+                </h1>
             </div>
         </footer>
     );
