@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Home from './pages/Home';
 import Lenis from '@studio-freight/lenis';
 
-// Legal Pages
-import Privacy from './pages/legal/Privacy';
-import TOS from './pages/legal/TOS';
-import DeleteAccount from './pages/legal/DeleteAccount';
+// Legal Pages (Lazy Loaded)
+const Privacy = lazy(() => import('./pages/legal/Privacy'));
+const TOS = lazy(() => import('./pages/legal/TOS'));
+const DeleteAccount = lazy(() => import('./pages/legal/DeleteAccount'));
 
-// Dashboard
-import DashboardLayout from './features/dashboard/DashboardLayout';
-import Overview from './features/dashboard/Overview';
-import NotesManager from './features/dashboard/NotesManager';
+// Dashboard (Lazy Loaded)
+const DashboardLayout = lazy(() => import('./features/dashboard/DashboardLayout'));
+const Overview = lazy(() => import('./features/dashboard/Overview'));
+const NotesManager = lazy(() => import('./features/dashboard/NotesManager'));
 
 import './styles/variables.css';
 
@@ -106,7 +106,9 @@ function App() {
     <>
       {/* Premium Texture Noise */}
       <div className="noise" aria-hidden="true" />
-      {renderContent()}
+      <Suspense fallback={<div style={{ height: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-3)' }}>Loading dashboard...</div>}>
+        {renderContent()}
+      </Suspense>
     </>
   );
 }

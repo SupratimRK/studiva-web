@@ -1,8 +1,8 @@
-import { lazy, Suspense, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TrendingUp, Users } from 'lucide-react';
-const SplineScene = lazy(() => import('../../components/ui/SplineScene'));
+import SplineScene from '../../components/ui/SplineScene';
 import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
 import './Hero.css';
 
@@ -13,18 +13,19 @@ const Hero = () => {
         const tl = gsap.timeline();
         
         tl.from('.gsap-title-word', {
-            y: 40,
+            y: 20,
             opacity: 0,
-            duration: 0.8,
+            duration: 0.5,
             stagger: 0.15,
-            ease: "power3.out"
+            // Mimics the Framer Motion y: [20, -5, 0] overshoot
+            ease: "back.out(1.7)" 
         })
         .from('.gsap-sub', {
             y: 20,
             opacity: 0,
             duration: 0.7,
             ease: "power3.out"
-        }, "-=0.4")
+        }, "-=0.2")
         .from('.gsap-cta', {
             y: 20,
             opacity: 0,
@@ -44,6 +45,16 @@ const Hero = () => {
             yoyo: true,
             repeat: -1,
             stagger: 0.3
+        });
+
+        // Background highlight sweep animation for "Into Income"
+        gsap.to('.accent-text', {
+            backgroundSize: "100% 100%",
+            color: "var(--surface)",
+            duration: 1.5,
+            ease: "power3.inOut",
+            delay: 0.8,
+            stagger: 0.2
         });
         
     }, { scope: containerRef });

@@ -54,7 +54,6 @@
 
 /* Top: Title text */
 .hero__text-layer {
-  top: -9%;
   position: absolute;
   z-index: 1;
   max-width: 900px;
@@ -62,7 +61,7 @@
   pointer-events: auto;
 }
 
-/* Bottom: Description left, Buttons right */
+/* Bottom: Description, Stats, Buttons */
 .hero__bottom-row {
   position: relative;
   z-index: 10;
@@ -76,13 +75,16 @@
 }
 
 .hero__bottom-left {
-  max-width: 420px;
+  max-width: 430px;
   text-align: left;
 }
 
 .hero__bottom-left .hero__sub {
   margin: 0 0 20px;
   text-align: left;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-2);
 }
 
 .hero__bottom-left .hero__stats {
@@ -109,8 +111,11 @@
 }
 
 .accent-text {
-  background-color: var(--text-1);
-  color: var(--surface);
+  background-image: linear-gradient(to right, var(--text-1), var(--text-1));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  color: var(--text-1);
   padding: 2px 12px;
   display: inline-block;
   border-radius: 6px;
@@ -424,30 +429,53 @@
   }
 
   .hero__bottom-row {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 32px;
   }
 
   .hero__bottom-left {
-    max-width: 100%;
-    text-align: center;
+    display: contents; /* Break wrapper to allow children to participate in flex order */
   }
 
-  .hero__bottom-left .hero__sub {
-    text-align: center;
-  }
-
-  .hero__bottom-left .hero__stats {
-    justify-content: center;
+  .hero__sub {
+    max-width: 100% !important;
+    text-align: center !important;
+    margin: 0 !important;
+    order: 1; /* Description first */
   }
 
   .hero__bottom-right {
     justify-content: center;
+    order: 2; /* Buttons below description */
+  }
+
+  .hero__stats {
+    justify-content: center !important;
+    order: 3; /* Stats completely below the buttons */
+    margin-top: 8px; /* Extra breathing room */
   }
 }
+
 @media (max-width: 640px) {
   .hero__text-layer{
     top: 0;
+  }
+  
+  .hero__bottom-row {
+    gap: 24px; /* Make the gap smaller across the bottom row */
+  }
+
+  /* For mobile: stack buttons vertically by default */
+  .hero__bottom-right {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .hero__stats {
+    gap: 16px;
   }
 }

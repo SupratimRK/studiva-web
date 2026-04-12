@@ -33,12 +33,7 @@
     display: flex;
     gap: 0;
     width: max-content;
-    animation: marquee 32s linear infinite;
     will-change: transform;
-}
-
-.marquee-strip:hover .marquee-track {
-    animation-play-state: paused;
 }
 
 .marquee__item {

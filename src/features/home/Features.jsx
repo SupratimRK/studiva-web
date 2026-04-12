@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -69,7 +69,7 @@ const catRow2 = [
   { name: 'Class 10', count: '18K+ notes', icon: Book },
 ];
 
-const FeatureBlock = ({ feature }) => {
+const FeatureBlock = memo(({ feature }) => {
   const blockRef = useRef(null);
   const lineRef = useRef(null);
   const mediaRef = useRef(null);
@@ -147,7 +147,7 @@ const FeatureBlock = ({ feature }) => {
           <div className="feat-block__frame">
             <video
               src={feature.video}
-              autoPlay muted loop playsInline
+              autoPlay muted loop playsInline preload="none"
               className="feat-block__video"
             />
             <div className="feat-block__scrim" />
@@ -196,7 +196,7 @@ const FeatureBlock = ({ feature }) => {
       </div>
     </div>
   );
-};
+});
 
 
 const Features = () => {

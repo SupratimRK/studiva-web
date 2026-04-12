@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -58,7 +58,7 @@ function useCounter(target, duration = 1.0, start = false) {
     return count;
 }
 
-const StatItem = ({ stat, animate }) => {
+const StatItem = memo(({ stat, animate }) => {
     const count = useCounter(stat.value, 1.2, animate);
     return (
         <div className="creator-stat">
@@ -66,7 +66,7 @@ const StatItem = ({ stat, animate }) => {
             <span className="creator-stat__label">{stat.label}</span>
         </div>
     );
-};
+});
 
 const CreatorEconomy = () => {
     const sectionRef = useRef(null);

@@ -2,21 +2,22 @@ import { useEffect, useState } from 'react';
 import './ThemeToggle.css';
 
 const ThemeToggle = () => {
-    // Check initial theme from localStorage or system preference
     const [isDark, setIsDark] = useState(() => {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             return savedTheme === 'dark';
         }
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return false; // Default is explicitly light mode
     });
 
     useEffect(() => {
-        // Sync to local storage on change
+        // Sync to local storage and DOM on change/mount
         if (isDark) {
             localStorage.setItem('theme', 'dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             localStorage.setItem('theme', 'light');
+            document.documentElement.removeAttribute('data-theme');
         }
     }, [isDark]);
 

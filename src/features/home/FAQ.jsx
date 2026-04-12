@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, memo } from 'react';
 import { Plus, Minus, MessageCircle, HelpCircle, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -34,7 +34,7 @@ const faqs = [
   },
 ];
 
-const FAQItem = ({ faq, index }) => {
+const FAQItem = memo(({ faq, index }) => {
   const [isOpen, setIsOpen] = useState(index === 0);
   const contentRef = useRef(null);
 
@@ -67,7 +67,7 @@ const FAQItem = ({ faq, index }) => {
       </div>
     </div>
   );
-};
+});
 
 const FAQ = () => {
   const sectionRef = useRef(null);
