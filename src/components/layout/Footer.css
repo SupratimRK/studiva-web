@@ -158,14 +158,13 @@
 .footer-b__bottom-area {
     padding-top: 60px;
     padding-bottom: 0px;
-    overflow: hidden; /* Crop bottom space */
+    overflow: hidden;
 }
 
 .footer-b__massive-text {
     font-family: 'Thesead', system-ui, -apple-system, sans-serif;
     font-size: clamp(100px, 25vw, 420px);
     font-weight: 950;
-    letter-spacing: -0.05em;
     line-height: 0.8;
     margin: 0;
     text-align: center;
@@ -175,20 +174,20 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    gap: 0.04em; /* Spacing between letters */
+}
 
-    /* Fade Down Effect */
+.footer-letter {
+    display: inline-block;
+    /* Fade gradient on each letter individually */
     background: linear-gradient(to bottom, var(--footer-text-fade-start) 15%, var(--footer-text-fade-end) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-
-    transform: translateY(15%);
-}
-
-.footer-letter {
-    display: inline-block;
-    will-change: transform, opacity;
+    /* Initial state: hidden below, GSAP will animate to visible */
+    transform: translateY(120px) scale(0.5);
+    transform-origin: center bottom;
 }
 
 /* Responsive Overrides */
@@ -223,5 +222,10 @@
 
     .footer-b__massive-text {
         letter-spacing: -2px;
+        font-size: clamp(100px, 100vw, 100px);
+    }
+    
+    .footer-letter {
+        transform: none; /* Make letters visible immediately since bounce animation is disabled on mobile */
     }
 }

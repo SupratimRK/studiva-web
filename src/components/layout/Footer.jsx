@@ -26,25 +26,38 @@ const Footer = () => {
     const footerRef = useRef(null);
 
     useGSAP(() => {
-        // Individual letter bounce
-        const letters = massiveTextRef.current.querySelectorAll('.footer-letter');
-        gsap.from(letters, {
-            y: 100,
-            opacity: 0,
-            rotate: 20,
-            scale: 0.5,
-            duration: 1.2,
-            stagger: 0.1,
-            ease: "back.out(2)",
-            scrollTrigger: {
-                trigger: footerRef.current,
-                start: "top 90%",
-                once: true // Only once
-            }
+        const mm = gsap.matchMedia();
+
+        // Bouncing letter entrance animation (Desktop/Tablet only)
+        mm.add("(min-width: 641px)", () => {
+            const letters = massiveTextRef.current?.querySelectorAll('.footer-letter');
+            if (!letters || letters.length === 0) return;
+            
+            // Letters start at y:120 scale:0.5 (set in CSS)
+            // Animate each letter bouncing up into place — replays every time footer enters viewport
+            gsap.to(letters, {
+                y: 0,
+                scale: 1,
+                rotation: 0,
+                duration: 1.4,
+                stagger: {
+                    each: 0.12,
+                    from: "start"
+                },
+                ease: "bounce.out",
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: "top 85%",
+                    end: "top 20%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
         });
 
-        // Magnetic links for social buttons
-        const socialBtns = document.querySelectorAll('.footer-b__social-btn');
+        // Magnetic links for social buttons (scoped to footer)
+        const socialBtns = footerRef.current?.querySelectorAll('.footer-b__social-btn');
+        if (!socialBtns) return;
+        
         socialBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();

@@ -202,7 +202,7 @@ const FeatureBlock = ({ feature }) => {
 const Features = () => {
   const headRef = useRef(null);
 
-  useGSAP(() => {
+    useGSAP(() => {
     const el = headRef.current;
     if (!el) return;
     const items = el.querySelectorAll('[data-anim]');
@@ -215,7 +215,26 @@ const Features = () => {
       ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 80%', once: true },
     });
+
+    // Small scroll-triggered pop-up animation for belt chips
+    gsap.set('.belt-chip', { opacity: 0, scale: 0.8, y: 10 });
+    ScrollTrigger.batch('.belt-chip', {
+      interval: 0.1, // time window to batch triggers
+      batchMax: 3,   // max elements per batch
+      onEnter: batch => gsap.to(batch, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        stagger: 0.05,
+        duration: 0.5,
+        ease: 'back.out(1.5)',
+        overwrite: true
+      }),
+      start: "top 90%",
+      once: true
+    });
   }, { scope: headRef });
+
 
   return (
     <section id="features" className="features">

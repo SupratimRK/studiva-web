@@ -11,7 +11,7 @@ const Testimonials = lazy(() => import('../features/home/Testimonials'));
 const Comparison = lazy(() => import('../features/home/Comparison'));
 const FAQ = lazy(() => import('../features/home/FAQ'));
 const FinalCTA = lazy(() => import('../features/home/FinalCTA'));
-const Footer = lazy(() => import('../components/layout/Footer'));
+import Footer from '../components/layout/Footer';
 
 export default function Home() {
   return (
@@ -30,9 +30,7 @@ export default function Home() {
           <FinalCTA />
         </Suspense>
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </>
   );
 }

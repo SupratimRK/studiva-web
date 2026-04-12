@@ -18,17 +18,6 @@ const Navbar = () => {
     const isNavClickScrolling = useRef(false);
 
     useGSAP(() => {
-        // Scroll Progress Bar
-        gsap.to('.nav__progress-bar', {
-            scaleX: 1,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: document.documentElement,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: true
-            }
-        });
 
         // Magnetic Button Hover
         const btn = document.querySelector('#nav-cta-download');
@@ -150,7 +139,6 @@ const Navbar = () => {
 
     return (
         <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`} ref={navRef}>
-            <div className="nav__progress-bar"></div>
             <div className="container nav__inner">
                 {/* Logo */}
                 <a 
@@ -193,6 +181,17 @@ const Navbar = () => {
                 {/* Actions */}
                 <div className="nav__actions">
                     <ThemeToggle />
+                    {/* <a 
+                        href="/dashboard" 
+                        className="nav__link nav__link--dashboard"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.history.pushState({}, '', '/dashboard');
+                            window.dispatchEvent(new Event('navigate'));
+                        }}
+                    >
+                        Dashboard
+                    </a> */}
                     <a href="#download" className="btn-primary" id="nav-cta-download">
                         Get App
                         <ArrowRight size={14} />
@@ -219,6 +218,23 @@ const Navbar = () => {
             {/* Mobile Menu */}
             <div className={`nav__mobile-menu ${isOpen ? 'is-open' : ''}`}>
                 <div className="nav__mobile-inner">
+                    {/* <a
+                        href="/dashboard"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.history.pushState({}, '', '/dashboard');
+                            window.dispatchEvent(new Event('navigate'));
+                            setIsOpen(false);
+                        }}
+                        className="nav__mobile-link nav__mobile-link--dashboard"
+                    >
+                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <LayoutDashboard size={18} />
+                            Go to Dashboard
+                        </div>
+                        <ArrowRight size={14} />
+                    </a>
+                    <div className="nav__mobile-divider" /> */}
                     {links.map((link) => (
                         <a
                             key={link.label}

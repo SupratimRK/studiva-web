@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense, useRef } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TrendingUp, Users } from 'lucide-react';
@@ -8,14 +8,6 @@ import './Hero.css';
 
 const Hero = () => {
     const containerRef = useRef(null);
-
-    useEffect(() => {
-        // Alignment and initial setup
-        const timer = setTimeout(() => {
-            gsap.ticker.lagSmoothing(0);
-        }, 100);
-        return () => clearTimeout(timer);
-    }, []);
 
     useGSAP(() => {
         const tl = gsap.timeline();
@@ -60,11 +52,17 @@ const Hero = () => {
         <section className="hero" ref={containerRef}>
             <div className="grid-bg" />
 
+            {/* 3D Scene Container - Hidden on Mobile via CSS */}
+            <div className="hero__spline-container">
+                <Suspense fallback={<SplinePlaceholder />}>
+                    <SplineScene />
+                </Suspense>
+            </div>
+
             {/* Main Content Container */}
             <div className="container hero__inner">
-                {/* Text Content */}
-                <div className="hero__content">
-
+                {/* Top: Big Title */}
+                <div className="hero__text-layer">
                     <h1 className="hero__title">
                         <span className="gsap-title-word" style={{ display: 'inline-block' }}>
                             Turn Your Notes
@@ -78,13 +76,28 @@ const Hero = () => {
                             Inc<span className="super-o">o</span>me.
                         </span>
                     </h1>
+                </div>
 
-                    <p className="hero__sub section-sub gsap-sub">
-                        The world's first note marketplace that respects your time.
-                        Earn through paid sales and rewarded ads — <strong>no forced ads, ever.</strong>
-                    </p>
+                {/* Bottom: Description left, Buttons right */}
+                <div className="hero__bottom-row">
+                    <div className="hero__bottom-left gsap-sub">
+                        <p className="hero__sub section-sub">
+                            The world's first note marketplace that respects your time.
+                            Earn through paid sales and rewarded ads — <strong>no forced ads, ever.</strong>
+                        </p>
+                        <div className="hero__stats gsap-stats">
+                            <div className="hero__stat">
+                                <Users size={18} />
+                                <span><strong>200K+</strong> Learners</span>
+                            </div>
+                            <div className="hero__stat">
+                                <TrendingUp size={18} />
+                                <span><strong>₹2Cr+</strong> Paid</span>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div className="hero__cta gsap-cta">
+                    <div className="hero__bottom-right gsap-cta">
                         <a href="https://play.google.com/store/apps/details?id=com.studiva.app" className="brutalist-button">
                             <svg className="brutalist-icon" viewBox="0 0 918.6 515.1" width="24" height="24" fill="currentColor">
                                 <path d="M918.6 515.1h-918.6c14.7-155.7 103.7-288.7 235.1-359.9l-76.2-132c-4.3-7.4-1.8-16.8 5.6-21.1s16.8-1.8 21.1 5.6l77.2 133.7c58.9-26.9 125.2-41.9 196.5-41.9s137.6 15 196.5 41.9l77.2-133.7c4.2-7.4 13.7-9.9 21-5.6s9.9 13.7 5.6 21.1l-76.2 132c131.5 71.2 220.5 204.2 235.2 359.9zm-248.5-129c21.3 0 38.6-17.3 38.5-38.5 0-21.2-17.2-38.5-38.5-38.5-21.2 0-38.5 17.2-38.5 38.5 0 21.2 17.2 38.5 38.5 38.5zm-421.7 0c21.3 0 38.6-17.3 38.5-38.5 0-21.2-17.2-38.5-38.5-38.5-21.2 0-38.5 17.2-38.5 38.5 0 21.2 17.2 38.5 38.5 38.5z" />
@@ -103,17 +116,6 @@ const Hero = () => {
                             <span className="bottom-key-1"></span>
                             <span className="bottom-key-2"></span>
                         </a>
-                    </div>
-
-                    <div className="hero__stats gsap-stats">
-                        <div className="hero__stat">
-                            <Users size={18} />
-                            <span><strong>200K+</strong> Learners</span>
-                        </div>
-                        <div className="hero__stat">
-                            <TrendingUp size={18} />
-                            <span><strong>₹2Cr+</strong> Paid</span>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -4,15 +4,33 @@
   min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
   background-color: var(--surface);
   color: var(--text-1);
-  padding: 80px 0;
-  contain: layout;
+  padding: 120px 0 60px;
   isolation: isolate;
+}
+
+.hero__spline-container {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  width: 1000px;
+  height: 2000px;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+@media (max-width: 1024px) {
+  .hero__spline-container {
+    display: none;
+  }
 }
 
 .container {
@@ -27,22 +45,59 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
-  z-index: 2;
   width: 100%;
-  will-change: transform;
-  transform: translateZ(0);
+  height: 100%;
+  flex: 1;
+}
+
+/* Top: Title text */
+.hero__text-layer {
+  top: -9%;
+  position: absolute;
+  z-index: 1;
+  max-width: 900px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+/* Bottom: Description left, Buttons right */
+.hero__bottom-row {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  pointer-events: auto;
+  margin-top: auto;
+}
+
+.hero__bottom-left {
+  max-width: 420px;
+  text-align: left;
+}
+
+.hero__bottom-left .hero__sub {
+  margin: 0 0 20px;
+  text-align: left;
+}
+
+.hero__bottom-left .hero__stats {
+  justify-content: flex-start;
+}
+
+.hero__bottom-right {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 /* ─── Text ────────────────────────────────────────────────── */
-.hero__content {
-  max-width: 900px;
-  text-align: center;
-  position: relative;
-  z-index: 3;
-}
-
 .hero__title {
   font-family: 'ID Grotesk', sans-serif;
   font-size: clamp(56px, 8vw, 110px);
@@ -61,6 +116,7 @@
   border-radius: 6px;
   margin: 0 4px 6px 0;
 }
+
 
 .super-o {
   font-family: 'Super Kindly', sans-serif;
@@ -81,10 +137,11 @@
 
 .hero__cta {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 44px;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 10;
 }
 
 /* ─── Brutalist Button (from Uiverse.io) ─────────────────── */
@@ -323,12 +380,8 @@
 
 .hero__stats {
   display: flex;
-  gap: 36px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-    display: flex;
-    gap: 32px;
-    justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .hero__stat {
@@ -341,7 +394,7 @@
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: 100px;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -359,39 +412,42 @@
 @media (max-width: 1024px) {
   .hero {
     height: auto;
-    /* Let it grow on mobile if content gets stacked */
     padding: 120px 5% 60px;
-    /* Add padding back for scrolling */
   }
 
   .hero__inner {
-    grid-template-columns: 1fr;
     text-align: center;
-  }
-
-  .hero__content {
-    grid-column: 1;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  .hero__green-block {
-    width: 80vw;
-    height: 40vh;
-    top: 75%;
-    right: 50%;
-    transform: translate(50%, -50%) rotate(0);
-    opacity: 0.15;
-    filter: blur(40px);
   }
 
   .hero__title {
     font-size: clamp(48px, 14vw, 86px);
   }
 
-  .hero__cta,
-  .hero__stats {
+  .hero__bottom-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .hero__bottom-left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero__bottom-left .hero__sub {
+    text-align: center;
+  }
+
+  .hero__bottom-left .hero__stats {
     justify-content: center;
   }
 
+  .hero__bottom-right {
+    justify-content: center;
+  }
+}
+@media (max-width: 640px) {
+  .hero__text-layer{
+    top: 0;
+  }
 }
