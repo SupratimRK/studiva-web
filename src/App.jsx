@@ -10,12 +10,18 @@ import Privacy from './pages/legal/Privacy';
 import TOS from './pages/legal/TOS';
 import DeleteAccount from './pages/legal/DeleteAccount';
 
+// Dashboard
+import DashboardLayout from './features/dashboard/DashboardLayout';
+import Overview from './features/dashboard/Overview';
+import NotesManager from './features/dashboard/NotesManager';
+
 import './styles/variables.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [path, setPath] = useState(window.location.pathname);
+  const [dashboardTab, setDashboardTab] = useState('overview');
 
   useEffect(() => {
     // Initialize Lenis Smooth Scroll
@@ -79,6 +85,18 @@ function App() {
         return <TOS />;
       case '/delete-account':
         return <DeleteAccount />;
+      case '/dashboard':
+        return (
+          <DashboardLayout 
+            activeTab={dashboardTab} 
+            onTabChange={setDashboardTab}
+          >
+            {dashboardTab === 'overview' && <Overview />}
+            {dashboardTab === 'notes' && <NotesManager />}
+            {dashboardTab === 'earnings' && <div className="dashboard-card">Earnings Coming Soon</div>}
+            {dashboardTab === 'analytics' && <div className="dashboard-card">Analytics Coming Soon</div>}
+          </DashboardLayout>
+        );
       default:
         return <Home />;
     }

@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Menu, X, ArrowRight, BookOpen, UserCircle, Layout, LayoutDashboard } from 'lucide-react';
+import ThemeToggle from '../ui/ThemeToggle';
 import './Navbar.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -15,7 +17,22 @@ const Navbar = () => {
     const indicatorRef = useRef(null);
     const isNavClickScrolling = useRef(false);
 
-    useEffect(() => {
+    useGSAP(() => {
+
+        // Magnetic Button Hover
+        const btn = document.querySelector('#nav-cta-download');
+        if (btn) {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: 'power2.out' });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+            });
+        }
+
         // Active Section Observer
         const observerOptions = {
             root: null,
@@ -49,12 +66,12 @@ const Navbar = () => {
                     setScrolled(true);
                     gsap.timeline({ overwrite: 'auto' })
                         .to(nav, { maxWidth: '1100px', duration: 0.35, ease: 'power3.out' })
-                        .to(nav, { top: '12px', height: '60px', background: 'rgba(255, 255, 255, 0.85)', borderColor: 'rgba(23, 23, 23, 0.15)', duration: 0.35, ease: 'power3.out' }, '-=0.15');
+                        .to(nav, { top: '12px', height: '60px', duration: 0.35, ease: 'power3.out' }, '-=0.15');
                 },
                 onLeaveBack: () => {
                     setScrolled(false);
                     gsap.timeline({ overwrite: 'auto' })
-                        .to(nav, { top: '24px', height: '64px', background: 'rgba(255, 255, 255, 0.6)', borderColor: 'rgba(23, 23, 23, 0.08)', duration: 0.35, ease: 'power3.out' })
+                        .to(nav, { top: '24px', height: '64px', duration: 0.35, ease: 'power3.out' })
                         .to(nav, { maxWidth: '1200px', duration: 0.35, ease: 'power3.out' }, '-=0.15');
                 }
             });
@@ -64,7 +81,7 @@ const Navbar = () => {
             observer.disconnect();
             if (scrollTrig) scrollTrig.kill();
         };
-    }, []);
+    }, { scope: navRef });
 
     // Update Indicator Position
     useEffect(() => {
@@ -163,6 +180,18 @@ const Navbar = () => {
 
                 {/* Actions */}
                 <div className="nav__actions">
+                    <ThemeToggle />
+                    {/* <a 
+                        href="/dashboard" 
+                        className="nav__link nav__link--dashboard"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.history.pushState({}, '', '/dashboard');
+                            window.dispatchEvent(new Event('navigate'));
+                        }}
+                    >
+                        Dashboard
+                    </a> */}
                     <a href="#download" className="btn-primary" id="nav-cta-download">
                         Get App
                         <ArrowRight size={14} />
@@ -189,6 +218,23 @@ const Navbar = () => {
             {/* Mobile Menu */}
             <div className={`nav__mobile-menu ${isOpen ? 'is-open' : ''}`}>
                 <div className="nav__mobile-inner">
+                    {/* <a
+                        href="/dashboard"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.history.pushState({}, '', '/dashboard');
+                            window.dispatchEvent(new Event('navigate'));
+                            setIsOpen(false);
+                        }}
+                        className="nav__mobile-link nav__mobile-link--dashboard"
+                    >
+                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <LayoutDashboard size={18} />
+                            Go to Dashboard
+                        </div>
+                        <ArrowRight size={14} />
+                    </a>
+                    <div className="nav__mobile-divider" /> */}
                     {links.map((link) => (
                         <a
                             key={link.label}

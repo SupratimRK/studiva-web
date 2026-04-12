@@ -87,30 +87,40 @@
   white-space: nowrap;
 }
 
-/* ── Grid ──────────────────────────────────── */
-.testimonials__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+/* ── Marquee ──────────────────────────────────── */
+.testimonials__marquee {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  padding: 40px 0;
+}
+
+.testimonials__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
 }
 
 /* ── Card ──────────────────────────────────── */
 .tcard {
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 20px;
+  padding: 24px;
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  border-radius: 14px;
+  border-radius: 20px;
   cursor: default;
   will-change: transform, opacity;
+  transition: border-color 0.3s, transform 0.3s;
 }
 
 .tcard:hover {
-  background: var(--surface);
-  transform: none;
-  box-shadow: none;
+  border-color: var(--accent-light);
+  transform: translateY(-4px);
 }
 
 .tcard__top {

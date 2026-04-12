@@ -84,15 +84,17 @@ const trustStats = [
 ];
 
 const Testimonials = () => {
-  const gridRef = useRef(null);
   const headRef = useRef(null);
   const trustRef = useRef(null);
+  const marqueeRef = useRef(null);
+  const trackRef = useRef(null);
+  const animationRef = useRef(null);
 
   useEffect(() => {
     const head = headRef.current;
-    const grid = gridRef.current;
+    const track = trackRef.current;
     const trust = trustRef.current;
-    if (!head || !grid || !trust) return;
+    if (!head || !track || !trust) return;
 
     // ── Header: line wipe then stagger up
     const headItems = head.querySelectorAll('[data-anim]');
@@ -128,26 +130,35 @@ const Testimonials = () => {
       });
     });
 
-    // ── Cards: cascade in with alternating y offset
-    const cards = grid.querySelectorAll('.tcard');
-    gsap.set(cards, { opacity: 0, y: 32 });
-    gsap.to(cards, {
-      opacity: 1, y: 0,
-      duration: 0.65, stagger: { amount: 0.5, from: 'start' },
-      ease: 'power3.out',
-      scrollTrigger: { trigger: grid, start: 'top 88%', once: true },
+    // ── Marquee Loop Animation
+    const trackWidth = track.scrollWidth;
+    const loopTime = 40; // Total duration for one cycle
+
+    // Create the infinite loop
+    animationRef.current = gsap.to(track, {
+      x: `-${trackWidth / 2}px`,
+      duration: loopTime,
+      ease: 'none',
+      repeat: -1,
+      paused: false
     });
 
-    // ── Card earn lines: slide in from left
-    const earns = grid.querySelectorAll('.tcard__earn');
-    gsap.set(earns, { opacity: 0, x: -10 });
-    gsap.to(earns, {
-      opacity: 1, x: 0, duration: 0.5, stagger: { amount: 0.4, from: 'start' }, ease: 'power2.out',
-      delay: 0.3,
-      scrollTrigger: { trigger: grid, start: 'top 88%', once: true },
-    });
+    // Entrance animation for the whole marquee
+    gsap.fromTo(marqueeRef.current, 
+      { opacity: 0, y: 40 },
+      { 
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: marqueeRef.current, start: 'top 90%' }
+      }
+    );
 
+    return () => {
+      if (animationRef.current) animationRef.current.kill();
+    };
   }, []);
+
+  const handleMouseEnter = () => animationRef.current?.pause();
+  const handleMouseLeave = () => animationRef.current?.play();
 
   return (
     <section className="testimonials" id="testimonials">
@@ -171,30 +182,37 @@ const Testimonials = () => {
           ))}
         </div>
 
-        {/* Cards */}
-        <div className="testimonials__grid" ref={gridRef}>
-          {testimonials.map(t => (
-            <div className="tcard" key={t.id}>
-              <div className="tcard__top">
-                <img
-                  className="tcard__avatar"
-                  src={t.avatar}
-                  alt={t.name}
-                  loading="lazy"
-                />
-                <div className="tcard__meta">
-                  <span className="tcard__name">{t.name}</span>
-                  <span className="tcard__role">{t.role}</span>
+        {/* Marquee Wrapper */}
+        <div 
+          className="testimonials__marquee" 
+          ref={marqueeRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="testimonials__track" ref={trackRef}>
+            {[...testimonials, ...testimonials].map((t, idx) => (
+              <div className="tcard" key={`${t.id}-${idx}`}>
+                <div className="tcard__top">
+                  <img
+                    className="tcard__avatar"
+                    src={t.avatar}
+                    alt={t.name}
+                    loading="lazy"
+                  />
+                  <div className="tcard__meta">
+                    <span className="tcard__name">{t.name}</span>
+                    <span className="tcard__role">{t.role}</span>
+                  </div>
+                  <span className="tcard__badge">{t.badge}</span>
                 </div>
-                <span className="tcard__badge">{t.badge}</span>
+                <div className="tcard__stars">
+                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                </div>
+                <p className="tcard__text">"{t.text}"</p>
+                <div className="tcard__earn">{t.earn}</div>
               </div>
-              <div className="tcard__stars">
-                {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-              </div>
-              <p className="tcard__text">"{t.text}"</p>
-              <div className="tcard__earn">{t.earn}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
       </div>

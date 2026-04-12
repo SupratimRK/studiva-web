@@ -1,106 +1,103 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
+import { lazy, Suspense, useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { TrendingUp, Users } from 'lucide-react';
 const SplineScene = lazy(() => import('../../components/ui/SplineScene'));
 import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
 import './Hero.css';
 
 const Hero = () => {
-    const [isSplineLoaded, setIsSplineLoaded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const containerRef = useRef(null);
 
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 1024);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    useGSAP(() => {
+        const tl = gsap.timeline();
+        
+        tl.from('.gsap-title-word', {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out"
+        })
+        .from('.gsap-sub', {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power3.out"
+        }, "-=0.4")
+        .from('.gsap-cta', {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power3.out"
+        }, "-=0.4")
+        .from('.gsap-stats', {
+            opacity: 0,
+            duration: 1
+        }, "-=0.2");
+        
+        // Float animation for stats
+        gsap.to('.hero__stat', {
+            y: -10,
+            duration: 2,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            stagger: 0.3
+        });
+        
+    }, { scope: containerRef });
 
     return (
-        <section className="hero">
-
-            {/* Background Spline Animation - Only Render on Desktop for Performance */}
-            {!isMobile && (
-                <div className="hero__spline-wrapper">
-                    <div className="hero__spline-container">
-                        <AnimatePresence>
-                            {!isSplineLoaded && (
-                                <motion.div
-                                    key="placeholder"
-                                    initial={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.6 }}
-                                    style={{ position: 'absolute', inset: 0, zIndex: 2 }}
-                                >
-                                    <SplinePlaceholder />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                        <Suspense fallback={null}>
-                            <SplineScene onLoad={() => setIsSplineLoaded(true)} />
-                        </Suspense>
-                    </div>
-                </div>
-            )}
-
+        <section className="hero" ref={containerRef}>
             <div className="grid-bg" />
+
+            {/* 3D Scene Container - Hidden on Mobile via CSS */}
+            <div className="hero__spline-container">
+                <Suspense fallback={<SplinePlaceholder />}>
+                    <SplineScene />
+                </Suspense>
+            </div>
 
             {/* Main Content Container */}
             <div className="container hero__inner">
-                {/* Text Content */}
-                <div className="hero__content">
-
-
+                {/* Top: Big Title */}
+                <div className="hero__text-layer">
                     <h1 className="hero__title">
-                        <motion.span
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                            style={{ display: 'inline-block' }}
-                        >
+                        <span className="gsap-title-word" style={{ display: 'inline-block' }}>
                             Turn Your Notes
-                        </motion.span>
+                        </span>
                         <br />
-                        <motion.span
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-                            className="accent-text"
-                            style={{ display: 'inline-block' }}
-                        >
+                        <span className="accent-text gsap-title-word" style={{ display: 'inline-block' }}>
                             Int<span className="super-o">o</span>
-                        </motion.span>
+                        </span>
                         {' '}
-                        <motion.span
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                            className="accent-text"
-                            style={{ display: 'inline-block' }}
-                        >
+                        <span className="accent-text gsap-title-word" style={{ display: 'inline-block' }}>
                             Inc<span className="super-o">o</span>me.
-                        </motion.span>
+                        </span>
                     </h1>
+                </div>
 
-                    <motion.p
-                        className="hero__sub section-sub"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
-                    >
-                        The world's first note marketplace that respects your time.
-                        Earn through paid sales and rewarded ads — <strong>no forced ads, ever.</strong>
-                    </motion.p>
+                {/* Bottom: Description left, Buttons right */}
+                <div className="hero__bottom-row">
+                    <div className="hero__bottom-left gsap-sub">
+                        <p className="hero__sub section-sub">
+                            The world's first note marketplace that respects your time.
+                            Earn through paid sales and rewarded ads — <strong>no forced ads, ever.</strong>
+                        </p>
+                        <div className="hero__stats gsap-stats">
+                            <div className="hero__stat">
+                                <Users size={18} />
+                                <span><strong>200K+</strong> Learners</span>
+                            </div>
+                            <div className="hero__stat">
+                                <TrendingUp size={18} />
+                                <span><strong>₹2Cr+</strong> Paid</span>
+                            </div>
+                        </div>
+                    </div>
 
-                    <motion.div
-                        className="hero__cta"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 0.7, ease: "easeOut" }}
-                    >
+                    <div className="hero__bottom-right gsap-cta">
                         <a href="https://play.google.com/store/apps/details?id=com.studiva.app" className="brutalist-button">
                             <svg className="brutalist-icon" viewBox="0 0 918.6 515.1" width="24" height="24" fill="currentColor">
                                 <path d="M918.6 515.1h-918.6c14.7-155.7 103.7-288.7 235.1-359.9l-76.2-132c-4.3-7.4-1.8-16.8 5.6-21.1s16.8-1.8 21.1 5.6l77.2 133.7c58.9-26.9 125.2-41.9 196.5-41.9s137.6 15 196.5 41.9l77.2-133.7c4.2-7.4 13.7-9.9 21-5.6s9.9 13.7 5.6 21.1l-76.2 132c131.5 71.2 220.5 204.2 235.2 359.9zm-248.5-129c21.3 0 38.6-17.3 38.5-38.5 0-21.2-17.2-38.5-38.5-38.5-21.2 0-38.5 17.2-38.5 38.5 0 21.2 17.2 38.5 38.5 38.5zm-421.7 0c21.3 0 38.6-17.3 38.5-38.5 0-21.2-17.2-38.5-38.5-38.5-21.2 0-38.5 17.2-38.5 38.5 0 21.2 17.2 38.5 38.5 38.5z" />
@@ -119,23 +116,7 @@ const Hero = () => {
                             <span className="bottom-key-1"></span>
                             <span className="bottom-key-2"></span>
                         </a>
-                    </motion.div>
-
-                    <motion.div
-                        className="hero__stats"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.1, duration: 1 }}
-                    >
-                        <div className="hero__stat">
-                            <Users size={18} />
-                            <span><strong>200K+</strong> Learners</span>
-                        </div>
-                        <div className="hero__stat">
-                            <TrendingUp size={18} />
-                            <span><strong>₹2Cr+</strong> Paid</span>
-                        </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>
