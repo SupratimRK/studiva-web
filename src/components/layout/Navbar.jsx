@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Menu, X, ArrowRight, BookOpen, UserCircle, Layout, LayoutDashboard } from 'lucide-react';
+import { Menu, X, ArrowRight, BookOpen, UserCircle, Layout, LayoutDashboard, Users } from 'lucide-react';
 import ThemeToggle from '../ui/ThemeToggle';
 import './Navbar.css';
 
@@ -103,6 +103,14 @@ const Navbar = () => {
 
     const scrollToSection = (e, id) => {
         e.preventDefault();
+
+        if (!id.startsWith('#')) {
+            window.history.pushState({}, '', id);
+            window.dispatchEvent(new Event('navigate'));
+            setIsOpen(false);
+            return;
+        }
+        
         const sectionId = id.replace('#', '');
         const el = document.getElementById(sectionId);
         
@@ -135,9 +143,11 @@ const Navbar = () => {
         { label: 'How it works', href: '#how-it-works', icon: <LayoutDashboard size={14} /> },
         { label: 'Creators', href: '#creators', icon: <UserCircle size={14} /> },
         { label: 'Reviews', href: '#testimonials', icon: <BookOpen size={14} /> },
+        { label: 'Team', href: '/team', icon: <Users size={14} /> },
     ];
 
     return (
+        <>
         <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`} ref={navRef}>
             <div className="container nav__inner">
                 {/* Logo */}
@@ -164,18 +174,24 @@ const Navbar = () => {
                 {/* Desktop Links */}
                 <div className="nav__links">
                     <div className="nav__indicator" ref={indicatorRef} />
-                    {links.map((link) => (
+                    {links.map((link) => {
+                        const isActive = link.href.startsWith('#') 
+                            ? activeSection === link.href.slice(1)
+                            : window.location.pathname === link.href;
+
+                        return (
                         <a
                             key={link.label}
                             href={link.href}
                             onClick={(e) => scrollToSection(e, link.href)}
-                            className={`nav__link ${activeSection === link.href.slice(1) ? 'nav__link--active' : ''}`}
+                            className={`nav__link ${isActive ? 'nav__link--active' : ''}`}
                             id={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                         >
                             <span className="nav__link-icon">{link.icon}</span>
                             <span>{link.label}</span>
                         </a>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 {/* Actions */}
@@ -205,59 +221,42 @@ const Navbar = () => {
                     </button>
                 </div>
             </div>
+        </nav>
 
-            {/* Mobile Menu Backdrop */}
-            {isOpen && (
-                <div 
-                    className="nav__mobile-backdrop" 
-                    onClick={() => setIsOpen(false)}
-                    aria-hidden="true" 
-                />
-            )}
+        {/* Mobile Menu Backdrop */}
+        {isOpen && (
+            <div 
+                className="nav__mobile-backdrop" 
+                onClick={() => setIsOpen(false)}
+                aria-hidden="true" 
+            />
+        )}
 
-            {/* Mobile Menu */}
-            <div className={`nav__mobile-menu ${isOpen ? 'is-open' : ''}`}>
-                <div className="nav__mobile-inner">
-                    {/* <a
-                        href="/dashboard"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            window.history.pushState({}, '', '/dashboard');
-                            window.dispatchEvent(new Event('navigate'));
-                            setIsOpen(false);
-                        }}
-                        className="nav__mobile-link nav__mobile-link--dashboard"
+        {/* Mobile Menu */}
+        <div className={`nav__mobile-menu ${isOpen ? 'is-open' : ''}`}>
+            <div className="nav__mobile-inner">
+                {links.map((link) => (
+                    <a
+                        key={link.label}
+                        href={link.href}
+                        onClick={(e) => scrollToSection(e, link.href)}
+                        className="nav__mobile-link"
                     >
-                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <LayoutDashboard size={18} />
-                            Go to Dashboard
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            {link.icon}
+                            {link.label}
                         </div>
-                        <ArrowRight size={14} />
+                        <ArrowRight size={14} style={{ opacity: 0.3 }} />
                     </a>
-                    <div className="nav__mobile-divider" /> */}
-                    {links.map((link) => (
-                        <a
-                            key={link.label}
-                            href={link.href}
-                            onClick={(e) => scrollToSection(e, link.href)}
-                            className="nav__mobile-link"
-                        >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                {link.icon}
-                                {link.label}
-                            </div>
-                            <ArrowRight size={14} style={{ opacity: 0.3 }} />
-                        </a>
-                    ))}
-                    <div style={{ padding: '8px 4px 0' }}>
-                        <a href="#download" className="btn-primary" style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '48px', alignItems: 'center' }}>
-                            Join 200,000+ Learners
-                        </a>
-                    </div>
+                ))}
+                <div style={{ padding: '8px 4px 0' }}>
+                    <a href="#download" className="btn-primary" style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '48px', alignItems: 'center' }}>
+                        Join 200,000+ Learners
+                    </a>
                 </div>
             </div>
-
-        </nav>
+        </div>
+        </>
     );
 };
 

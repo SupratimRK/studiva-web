@@ -17,7 +17,7 @@ const Footer = () => {
     const categories = [
         { id: 'product', title: 'PRODUCT', links: ['Features', 'How it works', 'Creator Tools', 'Pricing', 'Release Notes'] },
         { id: 'subjects', title: 'SUBJECTS', links: ['JEE Mains', 'NEET UG', 'CBSE Class 12', 'UPSC Prelims', 'Engineering'] },
-        { id: 'company', title: 'COMPANY', links: ['About Studyvia', 'Career', 'Newsroom', 'Contact Us'] },
+        { id: 'company', title: 'COMPANY', links: ['About Studyvia', 'Development Team', 'Career', 'Newsroom', 'Contact Us'] },
         { id: 'legal', title: 'LEGAL', links: ['Privacy Policy', 'Terms of Service', 'Account Deletion'] },
     ];
 
@@ -92,7 +92,7 @@ const Footer = () => {
                                     </button>
                                     <div className={`footer-b__dropdown-content ${openDropdown === cat.id ? 'open' : ''}`}>
                                         {cat.links.map(link => (
-                                            <a href="#" key={link} className="footer-b__link">{link}</a>
+                                            <a href={link === 'Development Team' ? '/team' : '#'} key={link} className="footer-b__link">{link}</a>
                                         ))}
                                     </div>
                                 </div>

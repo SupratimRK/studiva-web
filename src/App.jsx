@@ -10,6 +10,11 @@ const Privacy = lazy(() => import('./pages/legal/Privacy'));
 const TOS = lazy(() => import('./pages/legal/TOS'));
 const DeleteAccount = lazy(() => import('./pages/legal/DeleteAccount'));
 
+// Main Pages (Lazy Loaded)
+const Team = lazy(() => import('./pages/Team'));
+const ComingSoon = lazy(() => import('./pages/ComingSoon'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
 // Dashboard (Lazy Loaded)
 const DashboardLayout = lazy(() => import('./features/dashboard/DashboardLayout'));
 const Overview = lazy(() => import('./features/dashboard/Overview'));
@@ -85,6 +90,10 @@ function App() {
         return <TOS />;
       case '/delete-account':
         return <DeleteAccount />;
+      case '/team':
+        return <Team />;
+      case '/coming-soon':
+        return <ComingSoon />;
       case '/dashboard':
         return (
           <DashboardLayout 
@@ -97,8 +106,10 @@ function App() {
             {dashboardTab === 'analytics' && <div className="dashboard-card">Analytics Coming Soon</div>}
           </DashboardLayout>
         );
-      default:
+      case '/':
         return <Home />;
+      default:
+        return <NotFound />;
     }
   };
 

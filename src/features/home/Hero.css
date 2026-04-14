@@ -436,35 +436,41 @@
   }
 
   .hero__bottom-left {
-    display: contents; /* Break wrapper to allow children to participate in flex order */
+    display: contents;
+    /* Break wrapper to allow children to participate in flex order */
   }
 
   .hero__sub {
     max-width: 100% !important;
     text-align: center !important;
     margin: 0 !important;
-    order: 1; /* Description first */
+    order: 1;
+    /* Description first */
   }
 
   .hero__bottom-right {
     justify-content: center;
-    order: 2; /* Buttons below description */
+    order: 2;
+    /* Buttons below description */
   }
 
   .hero__stats {
     justify-content: center !important;
-    order: 3; /* Stats completely below the buttons */
-    margin-top: 8px; /* Extra breathing room */
+    order: 3;
+    /* Stats completely below the buttons */
+    margin-top: 8px;
+    /* Extra breathing room */
   }
 }
 
 @media (max-width: 640px) {
-  .hero__text-layer{
+  .hero__text-layer {
     top: 0;
   }
-  
+
   .hero__bottom-row {
-    gap: 24px; /* Make the gap smaller across the bottom row */
+    gap: 24px;
+    /* Make the gap smaller across the bottom row */
   }
 
   /* For mobile: stack buttons vertically by default */

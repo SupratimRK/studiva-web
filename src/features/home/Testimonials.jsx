@@ -172,7 +172,7 @@ const Testimonials = () => {
         </div>
 
         {/* Trust stats */}
-        <div className="trust-row" ref={trustRef}>
+        {/* <div className="trust-row" ref={trustRef}>
           {trustStats.map((b, i) => (
             <div key={i} className="trust-badge">
               <span className="trust-badge__icon">{b.icon}</span>
@@ -180,7 +180,7 @@ const Testimonials = () => {
               <span className="trust-badge__label">{b.label}</span>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Marquee Wrapper */}
         <div 
