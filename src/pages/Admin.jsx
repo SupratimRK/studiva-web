@@ -1,0 +1,222 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
+import { LogOut, Search, Filter, Download, Database } from 'lucide-react';
+import './Admin.css';
+
+const Admin = () => {
+  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [activeTab, setActiveTab] = useState('campus_representative_applications');
+  const [data, setData] = useState([]);
+  const [tableLoading, setTableLoading] = useState(false);
+
+  // Check auth state on mount
+  useEffect(() => {
+    checkUser();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        checkAdminStatus(session.user);
+      } else {
+        setUser(null);
+        setIsAdmin(false);
+        setLoading(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const checkUser = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      await checkAdminStatus(session.user);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  const checkAdminStatus = async (currentUser) => {
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', currentUser.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      if (profile?.is_admin) {
+        setUser(currentUser);
+        setIsAdmin(true);
+      } else {
+        await supabase.auth.signOut();
+        setError('Access denied. You do not have admin privileges.');
+      }
+    } catch (err) {
+      console.error('Error checking admin status:', err);
+      setError('Could not verify admin status.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginLoading(true);
+    setError(null);
+
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (authError) throw authError;
+      // Admin status check is handled by the onAuthStateChange listener
+    } catch (err) {
+      setError(err.message);
+      setLoginLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const fetchData = async (tableName) => {
+    setTableLoading(true);
+    try {
+      const { data: records, error: fetchError } = await supabase
+        .from(tableName)
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (fetchError) throw fetchError;
+      setData(records || []);
+    } catch (err) {
+      console.error(`Error fetching ${tableName}:`, err);
+    } finally {
+      setTableLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchData(activeTab);
+    }
+  }, [isAdmin, activeTab]);
+
+  const tabs = [
+    { id: 'campus_representative_applications', label: 'Campus Reps' },
+    { id: 'verified_creator_applications', label: 'Verified Creators' },
+    { id: 'feature_suggestions', label: 'Feature Ideas' },
+    { id: 'support_tickets', label: 'Support Tickets' }
+  ];
+
+  if (loading) {
+    return <div className="admin-page"><div className="empty-state">Verifying session...</div></div>;
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="admin-page">
+        <div className="admin-login">
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', color: 'var(--accent)' }}>
+            <Database size={40} />
+          </div>
+          <h2>Admin Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="field">
+              <label>Email Address</label>
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="admin@studiva.com"
+                required
+              />
+            </div>
+            <div className="field">
+              <label>Password</label>
+              <input 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            {error && <p style={{ color: '#ef4444', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
+            <button type="submit" disabled={loginLoading}>
+              {loginLoading ? 'Authenticating...' : 'Access Dashboard'}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-page">
+      <div className="admin-container">
+        <header className="admin-header">
+          <h1>Admin Dashboard</h1>
+          <button className="logout-btn" onClick={handleLogout}>
+            <LogOut size={16} /> Logout
+          </button>
+        </header>
+
+        <nav className="admin-nav">
+          {tabs.map(tab => (
+            <button 
+              key={tab.id}
+              className={`admin-nav-btn ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="admin-table-wrapper">
+          {loading ? (
+            <div className="empty-state">Loading records...</div>
+          ) : data.length === 0 ? (
+            <div className="empty-state">No records found in this category.</div>
+          ) : (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  {Object.keys(data[0]).map(key => (
+                    <th key={key}>{key.replace(/_/g, ' ').toUpperCase()}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row, i) => (
+                  <tr key={i}>
+                    {Object.values(row).map((val, j) => (
+                      <td key={j}>
+                        {typeof val === 'boolean' ? (val ? 'Yes' : 'No') : 
+                         (j === Object.keys(row).indexOf('status') ? <span className={`status-badge ${val}`}>{val}</span> : 
+                         (j === Object.keys(row).indexOf('created_at') ? new Date(val).toLocaleDateString() : String(val)))}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Admin;

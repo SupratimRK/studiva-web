@@ -2,8 +2,7 @@ import { Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Rocket, Users } from 'lucide-react';
-import SplineScene from '../../components/ui/SplineScene';
-import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
+import HeroVisual from '../../components/ui/HeroVisual';
 import './Hero.css';
 
 const Hero = () => {
@@ -11,32 +10,32 @@ const Hero = () => {
 
     useGSAP(() => {
         const tl = gsap.timeline();
-        
+
         tl.from('.gsap-title-word', {
             y: 20,
             opacity: 0,
             duration: 0.5,
             stagger: 0.15,
             // Mimics the Framer Motion y: [20, -5, 0] overshoot
-            ease: "back.out(1.7)" 
+            ease: "back.out(1.7)"
         })
-        .from('.gsap-sub', {
-            y: 20,
-            opacity: 0,
-            duration: 0.7,
-            ease: "power3.out"
-        }, "-=0.2")
-        .from('.gsap-cta', {
-            y: 20,
-            opacity: 0,
-            duration: 0.7,
-            ease: "power3.out"
-        }, "-=0.4")
-        .from('.gsap-stats', {
-            opacity: 0,
-            duration: 1
-        }, "-=0.2");
-        
+            .from('.gsap-sub', {
+                y: 20,
+                opacity: 0,
+                duration: 0.7,
+                ease: "power3.out"
+            }, "-=0.2")
+            .from('.gsap-cta', {
+                y: 20,
+                opacity: 0,
+                duration: 0.7,
+                ease: "power3.out"
+            }, "-=0.4")
+            .from('.gsap-stats', {
+                opacity: 0,
+                duration: 1
+            }, "-=0.2");
+
         // Float animation for stats
         gsap.to('.hero__stat', {
             y: -10,
@@ -56,18 +55,16 @@ const Hero = () => {
             delay: 0.8,
             stagger: 0.2
         });
-        
+
     }, { scope: containerRef });
 
     return (
         <section className="hero" ref={containerRef}>
             <div className="grid-bg" />
 
-            {/* 3D Scene Container - Hidden on Mobile via CSS */}
-            <div className="hero__spline-container">
-                <Suspense fallback={<SplinePlaceholder />}>
-                    <SplineScene />
-                </Suspense>
+            {/* Visual Container - Lightweight replacement for Spline */}
+            <div className="hero__visual-container">
+                <HeroVisual />
             </div>
 
             {/* Main Content Container */}
@@ -99,7 +96,7 @@ const Hero = () => {
                         <div className="hero__stats gsap-stats">
                             <div className="hero__stat">
                                 <Users size={18} />
-                                <span><strong>150+</strong> Early Adopters</span>
+                                <span><strong>250+</strong> Early Adopters</span>
                             </div>
                             <div className="hero__stat">
                                 <Rocket size={18} />

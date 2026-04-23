@@ -15,7 +15,7 @@ const Footer = () => {
     };
 
     const categories = [
-        { id: 'product', title: 'PRODUCT', links: ['Features', 'How it works', 'Creator Tools', 'Pricing', 'Release Notes'] },
+        { id: 'product', title: 'PRODUCT', links: ['Features', 'How it works', 'Creator Tools', 'Suggest a Feature', 'Release Notes'] },
         { id: 'subjects', title: 'SUBJECTS', links: ['JEE Mains', 'NEET UG', 'CBSE Class 12', 'UPSC Prelims', 'Engineering'] },
         { id: 'company', title: 'COMPANY', links: ['About Studyvia', 'Development Team', 'Career', 'Newsroom', 'Contact Us'] },
         { id: 'legal', title: 'LEGAL', links: ['Privacy Policy', 'Terms of Service', 'Account Deletion'] },
@@ -32,7 +32,7 @@ const Footer = () => {
         mm.add("(min-width: 641px)", () => {
             const letters = massiveTextRef.current?.querySelectorAll('.footer-letter');
             if (!letters || letters.length === 0) return;
-            
+
             // Letters start at y:120 scale:0.5 (set in CSS)
             // Animate each letter bouncing up into place — replays every time footer enters viewport
             gsap.to(letters, {
@@ -57,7 +57,7 @@ const Footer = () => {
         // Magnetic links for social buttons (scoped to footer)
         const socialBtns = footerRef.current?.querySelectorAll('.footer-b__social-btn');
         if (!socialBtns) return;
-        
+
         socialBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
@@ -83,17 +83,22 @@ const Footer = () => {
                         <div className="footer-b__col footer-b__dropdowns">
                             {categories.map(cat => (
                                 <div key={cat.id} className="footer-b__dropdown">
-                                    <button 
-                                        className="footer-b__dropdown-btn" 
+                                    <button
+                                        className="footer-b__dropdown-btn"
                                         onClick={() => toggleDropdown(cat.id)}
                                     >
-                                        {cat.title} 
+                                        {cat.title}
                                         <span className={`footer-b__arrow ${openDropdown === cat.id ? 'open' : ''}`}>↘</span>
                                     </button>
                                     <div className={`footer-b__dropdown-content ${openDropdown === cat.id ? 'open' : ''}`}>
-                                        {cat.links.map(link => (
-                                            <a href={link === 'Development Team' ? '/team' : '#'} key={link} className="footer-b__link">{link}</a>
-                                        ))}
+                                        {cat.links.map(link => {
+                                            let href = '#';
+                                            if (link === 'Development Team') href = '/team';
+                                            if (link === 'Suggest a Feature') href = '/suggest-feature';
+                                            return (
+                                                <a href={href} key={link} className="footer-b__link">{link}</a>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             ))}
@@ -130,6 +135,7 @@ const Footer = () => {
                     {FooterText.split('').map((char, index) => (
                         <span key={index} className="footer-letter">{char}</span>
                     ))}
+
                 </h1>
             </div>
         </footer>
