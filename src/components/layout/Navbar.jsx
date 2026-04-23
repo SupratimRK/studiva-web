@@ -33,52 +33,39 @@ const Navbar = () => {
             });
         }
 
-        // Active Section Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -70% 0px',
-            threshold: 0
-        };
-
-        const observerCallback = (entries) => {
-            if (isNavClickScrolling.current) return;
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        const sections = ['features', 'how-it-works', 'creators', 'testimonials'];
-        sections.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
 
         // High Performance Scroll Animation
         let scrollTrig;
         if (navRef.current) {
             const nav = navRef.current;
             scrollTrig = ScrollTrigger.create({
-                start: 'top -40',
+                start: 'top -20',
                 onEnter: () => {
                     setScrolled(true);
-                    gsap.timeline({ overwrite: 'auto' })
-                        .to(nav, { maxWidth: '1280px', duration: 0.35, ease: 'power3.out' })
-                        .to(nav, { top: '12px', height: '60px', duration: 0.35, ease: 'power3.out' }, '-=0.15');
+                    gsap.to(nav, { 
+                        maxWidth: '1200px', 
+                        top: '12px', 
+                        height: '60px', 
+                        duration: 0.4, 
+                        ease: 'power3.inOut',
+                        overwrite: 'auto'
+                    });
                 },
                 onLeaveBack: () => {
                     setScrolled(false);
-                    gsap.timeline({ overwrite: 'auto' })
-                        .to(nav, { top: '24px', height: '64px', duration: 0.35, ease: 'power3.out' })
-                        .to(nav, { maxWidth: '1380px', duration: 0.35, ease: 'power3.out' }, '-=0.15');
+                    gsap.to(nav, { 
+                        maxWidth: '1380px', 
+                        top: '24px', 
+                        height: '64px', 
+                        duration: 0.4, 
+                        ease: 'power3.inOut',
+                        overwrite: 'auto'
+                    });
                 }
             });
         }
 
         return () => {
-            observer.disconnect();
             if (scrollTrig) scrollTrig.kill();
         };
     }, { scope: navRef });
@@ -99,7 +86,7 @@ const Navbar = () => {
         } else if (indicatorRef.current) {
             gsap.to(indicatorRef.current, { opacity: 0, duration: 0.3 });
         }
-    }, [activeSection]);
+    }, [activeSection, scrolled]);
 
     // Handle hash scroll on mount or path change
     useEffect(() => {
@@ -175,12 +162,10 @@ const Navbar = () => {
 
 
     const links = [
-        { label: 'Features', href: '#features', icon: <Layout size={14} /> },
-        { label: 'How it works', href: '#how-it-works', icon: <LayoutDashboard size={14} /> },
-        { label: 'Creators', href: '#creators', icon: <UserCircle size={14} /> },
-        { label: 'Reviews', href: '#testimonials', icon: <BookOpen size={14} /> },
-        { label: 'Campus Rep', href: '/campus-representative', icon: <Users size={14} /> },
+        { label: 'Home', href: '/', icon: <Layout size={14} /> },
         { label: 'Team', href: '/team', icon: <Users size={14} /> },
+        { label: 'Campus Rep', href: '/campus-representative', icon: <Users size={14} /> },
+        { label: 'Support', href: '/support', icon: <BookOpen size={14} /> },
     ];
 
     return (
@@ -196,6 +181,8 @@ const Navbar = () => {
                             e.preventDefault();
                             window.history.pushState({}, '', '/');
                             window.dispatchEvent(new Event('navigate'));
+                            setActiveSection('');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                     >
                         <div className="nav__logo-icon">

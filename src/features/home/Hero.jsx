@@ -2,8 +2,7 @@ import { Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Rocket, Users } from 'lucide-react';
-import SplineScene from '../../components/ui/SplineScene';
-import SplinePlaceholder from '../../components/ui/SplinePlaceholder';
+import HeroVisual from '../../components/ui/HeroVisual';
 import './Hero.css';
 
 const Hero = () => {
@@ -63,11 +62,9 @@ const Hero = () => {
         <section className="hero" ref={containerRef}>
             <div className="grid-bg" />
 
-            {/* 3D Scene Container - Hidden on Mobile via CSS */}
-            <div className="hero__spline-container">
-                <Suspense fallback={<SplinePlaceholder />}>
-                    <SplineScene />
-                </Suspense>
+            {/* Visual Container - Lightweight replacement for Spline */}
+            <div className="hero__visual-container">
+                <HeroVisual />
             </div>
 
             {/* Main Content Container */}

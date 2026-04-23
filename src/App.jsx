@@ -16,6 +16,9 @@ const CampusRepresentative = lazy(() => import('./pages/CampusRepresentative'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'));
 const ShareRedirect = lazy(() => import('./pages/ShareRedirect'));
 const VerifiedCreator = lazy(() => import('./pages/VerifiedCreator'));
+const SuggestFeature = lazy(() => import('./pages/SuggestFeature'));
+const Support = lazy(() => import('./pages/Support'));
+const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Dashboard (Lazy Loaded)
@@ -106,6 +109,12 @@ function App() {
         return <ComingSoon />;
       case '/verified-creator':
         return <VerifiedCreator />;
+      case '/suggest-feature':
+        return <SuggestFeature />;
+      case '/support':
+        return <Support />;
+      case '/admin':
+        return <Admin />;
       case '/dashboard':
         return (
           <DashboardLayout 

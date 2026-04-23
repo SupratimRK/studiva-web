@@ -4,33 +4,34 @@
   left: 50%;
   transform: translateX(-50%) translateZ(0);
   width: 95%;
-  max-width: 1200px;
+  max-width: 1380px;
   height: 64px;
   z-index: 1000;
   display: flex;
   align-items: center;
   background: var(--nav-bg);
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--glass-border);
-  border-radius: 22px;
+  border-radius: 24px;
   padding: 0;
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
-  will-change: transform;
-  transition: background 0.35s ease, border-color 0.35s ease;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+  will-change: transform, max-width, top, height;
+  transition: 
+    background 0.4s var(--ease), 
+    border-color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
   overflow: hidden;
-  /* Important for the progress bar border-radius constraints */
 }
 
 
 
 .nav--scrolled {
-  /* Properties managed by GSAP, adding extra shadow here */
   background: var(--nav-bg-scrolled);
   border-color: var(--border-strong);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.15),
-    inset 0 0 0 1px var(--glass-border);
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .nav__inner {
@@ -62,7 +63,11 @@
   color: var(--text-1);
   letter-spacing: -0.8px;
   flex-shrink: 0;
-  transition: opacity 0.2s;
+  transition: all 0.3s var(--ease);
+}
+
+.nav__logo span {
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
 .nav__logo:hover {
@@ -108,14 +113,19 @@
 
 .nav__links {
   display: flex;
-  gap: 0;
+  gap: 2px;
   background: rgba(0, 0, 0, 0.03);
   padding: 4px;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid var(--border);
   position: relative;
   flex-shrink: 0;
   isolation: isolate;
+  transition: all 0.4s var(--ease);
+}
+
+:root[data-theme='dark'] .nav__links {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 
@@ -195,8 +205,9 @@
 }
 
 .nav__actions .btn-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(23, 23, 23, 0.15);
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(242, 86, 35, 0.3);
 }
 
 .nav__mobile-toggle {
@@ -223,22 +234,30 @@
   position: fixed;
   top: 96px;
   left: 50%;
-  transform: translateX(-50%) translateY(20px) scale(0.95);
+  transform: translateX(-50%) translateY(10px);
   width: 95%;
   max-width: 440px;
   background: var(--nav-mobile-bg);
-  backdrop-filter: blur(15px) saturate(200%);
-  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   padding: 12px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: 
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease,
+    top 0.4s var(--ease);
   box-shadow:
-    0 30px 60px rgba(23, 23, 23, 0.15),
-    0 0 0 1px rgba(23, 23, 23, 0.05);
+    0 30px 60px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
   z-index: 1001;
+}
+
+/* Adjust position when navbar is scrolled */
+.nav--scrolled ~ .nav__mobile-menu {
+  top: 80px; /* 12px top + 60px height + 8px gap */
 }
 
 .nav__mobile-menu.is-open {
@@ -277,18 +296,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 14px 20px;
   font-size: 15px;
   font-weight: 600;
   color: var(--text-2);
   text-decoration: none;
-  border-radius: 16px;
-  transition: all 0.2s;
+  border-radius: 18px;
+  transition: all 0.25s var(--ease);
+  background: transparent;
 }
 
 .nav__mobile-link:hover {
-  background: rgba(23, 23, 23, 0.05);
+  background: var(--surface-2);
   color: var(--text-1);
+  transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {
