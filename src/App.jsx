@@ -1,4 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
+import Loader from './components/common/Loader';
+
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -143,9 +145,15 @@ function App() {
     <>
       {/* Premium Texture Noise */}
       <div className="noise" aria-hidden="true" />
-      <Suspense fallback={<div style={{ height: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-3)' }}>Loading dashboard...</div>}>
+      <Suspense fallback={
+        <div style={{ height: '100vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px', background: 'var(--bg)' }}>
+          <Loader size="large" />
+          <span style={{ color: 'var(--text-3)', fontSize: '14px', fontWeight: '600', letterSpacing: '4px', opacity: 0.8 }}>STUDIVA</span>
+        </div>
+      }>
         {renderContent()}
       </Suspense>
+
     </>
   );
 }

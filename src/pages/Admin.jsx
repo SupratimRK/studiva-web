@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 import { api } from '../services/api';
 import { LogOut, Search, Filter, Download, Database } from 'lucide-react';
+import Loader from '../components/common/Loader';
 import './Admin.css';
+
 
 const Admin = () => {
 
@@ -122,8 +124,16 @@ const Admin = () => {
   ];
 
   if (loading) {
-    return <div className="admin-page"><div className="empty-state">Verifying session...</div></div>;
+    return (
+      <div className="admin-page">
+        <div className="empty-state" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <Loader size="medium" />
+          <span>Verifying session...</span>
+        </div>
+      </div>
+    );
   }
+
 
   if (!isAdmin) {
     return (
@@ -155,9 +165,10 @@ const Admin = () => {
               />
             </div>
             {error && <p style={{ color: '#ef4444', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
-            <button type="submit" disabled={loginLoading}>
-              {loginLoading ? 'Authenticating...' : 'Access Dashboard'}
+            <button type="submit" disabled={loginLoading} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+              {loginLoading ? <Loader size="small" /> : 'Access Dashboard'}
             </button>
+
           </form>
         </div>
       </div>
@@ -188,8 +199,12 @@ const Admin = () => {
 
         <div className="admin-table-wrapper">
           {loading ? (
-            <div className="empty-state">Loading records...</div>
+            <div className="empty-state" style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '60px 0' }}>
+              <Loader size="medium" />
+              <span>Loading records...</span>
+            </div>
           ) : data.length === 0 ? (
+
             <div className="empty-state">No records found in this category.</div>
           ) : (
             <table className="admin-table">

@@ -5,7 +5,9 @@ import { HelpCircle, Mail, Shield, MessageCircle, Send, CheckCircle, LifeBuoy } 
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { api } from '../services/api';
+import Loader from '../components/common/Loader';
 import './Support.css';
+
 
 const Support = () => {
   const containerRef = useRef(null);
@@ -223,13 +225,16 @@ const Support = () => {
                 )}
 
                 <button type="submit" className="support-form__submit" disabled={loading}>
-                  {loading ? 'Sending...' : (
+                  {loading ? (
+                    <Loader size="small" />
+                  ) : (
                     <>
                       Send Message
                       <Send size={18} />
                     </>
                   )}
                 </button>
+
               </form>
             </>
           )}

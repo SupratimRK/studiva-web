@@ -4,7 +4,9 @@ import { useGSAP } from '@gsap/react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { api } from '../services/api';
+import Loader from '../components/common/Loader';
 import './VerifiedCreator.css';
+
 
 /* ─── Benefit card data ───────────────────────────── */
 const BENEFITS = [
@@ -369,11 +371,9 @@ const VerifiedCreator = () => {
                   disabled={submitting}
                 >
                   {submitting ? (
-                    <>
-                      <span className="vc-spinner" />
-                      Submitting…
-                    </>
+                    <Loader size="small" />
                   ) : (
+
                     <>
                       Submit Application
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
