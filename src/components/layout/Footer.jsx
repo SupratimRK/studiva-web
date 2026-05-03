@@ -4,7 +4,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { api } from '../../services/api';
+import Loader from '../common/Loader';
 import './Footer.css';
+
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -173,8 +175,9 @@ const Footer = () => {
                                     disabled={status === 'loading' || status === 'success'}
                                 >
                                     {status === 'loading' ? (
-                                        <div className="footer-b__spinner" />
+                                        <Loader size="small" />
                                     ) : (
+
                                         <ArrowRight size={16} color="#171717" strokeWidth={2.5} />
                                     )}
                                 </button>

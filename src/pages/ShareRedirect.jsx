@@ -1,5 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import './ShareRedirect.css';
+import Loader from '../components/common/Loader';
+
 
 /**
  * ShareRedirect — Pure client-side deeplink redirect page.
@@ -110,9 +112,10 @@ const ShareRedirect = () => {
 
         {/* Loading state */}
         <div className="share-card__spinner-wrap">
-          <div className="share-card__spinner" />
-          <span className="share-card__spinner-text">Opening Studiva…</span>
+          <Loader size="medium" />
+          <span className="share-card__spinner-text" style={{ marginTop: '16px', display: 'block' }}>Opening Studiva…</span>
         </div>
+
 
         <h1 className="share-card__title">{label}</h1>
         <p className="share-card__desc">

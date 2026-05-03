@@ -5,7 +5,9 @@ import { useGSAP } from '@gsap/react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { api } from '../services/api';
+import Loader from '../components/common/Loader';
 import './CampusRepresentative.css';
+
 
 /* ── Benefit card data ───────────────────────────── */
 const BENEFITS = [
@@ -485,11 +487,9 @@ const CampusRepresentative = () => {
                   onMouseLeave={handleBtnMouseLeave}
                 >
                   {submitting ? (
-                    <>
-                      <span className="cr-spinner" />
-                      Sending…
-                    </>
+                    <Loader size="small" />
                   ) : (
+
                     <>
                       Apply Now
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

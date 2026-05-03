@@ -5,7 +5,9 @@ import { Sparkles, Heart, Users, MessageSquare, Send, CheckCircle, ArrowLeft } f
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { api } from '../services/api';
+import Loader from '../components/common/Loader';
 import './SuggestFeature.css';
+
 
 const SuggestFeature = () => {
   const containerRef = useRef(null);
@@ -220,13 +222,16 @@ const SuggestFeature = () => {
                 )}
 
                 <button type="submit" className="sf-form__submit" disabled={loading}>
-                  {loading ? 'Sending...' : (
+                  {loading ? (
+                    <Loader size="small" />
+                  ) : (
                     <>
                       Send Suggestion
                       <Send size={18} />
                     </>
                   )}
                 </button>
+
               </form>
             </>
           )}
